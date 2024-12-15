@@ -1,197 +1,246 @@
-# Implementação de Estruturas de Dados em C
+# Estruturas de Dados em C - Lista, Fila e Pilha
 
-Este projeto implementa três estruturas de dados fundamentais em C: Lista Encadeada, Fila e Pilha. A implementação usa um design modular onde a Fila e a Pilha encapsulam internamente uma Lista Encadeada.
+## 📌 Índice
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Estruturas Implementadas](#estruturas-implementadas)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação](#instalação)
+- [Como Usar](#como-usar)
+- [Complexidade das Operações](#complexidade-das-operações)
+- [Licença](#licença)
+- [Contato](#contato)
+- [Referências](#referências)
+- [Roadmap](#roadmap)
 
-## Estrutura do Projeto
+## 🎯 Sobre o Projeto
+Este projeto implementa três estruturas de dados fundamentais em C, usando um design modular e orientado a reuso. O objetivo é fornecer uma implementação clara e eficiente para fins educacionais e práticos.
 
-```
-.
-├── Lista.h         # Header da Lista Encadeada
-├── Lista.c         # Implementação da Lista
-├── Fila.h          # Header da Fila
-├── Fila.c          # Implementação da Fila
-├── Pilha.h         # Header da Pilha
-├── Pilha.c         # Implementação da Pilha
-└── main.c          # Programa de teste
-```
-
-## Diagramas das Estruturas
-
-### Lista Encadeada
-
-```mermaid
-classDiagram
-    class No {
-        +int valor
-        +No* prox
-    }
-    class Lista {
-        +No* prim
-        +No* ult
-    }
-    Lista --> No : contém
-    No --> No : aponta
-```
-
-### Fila (FIFO)
-
-```mermaid
-classDiagram
-    class Fila {
-        +Lista* lst
-        +void inserir(int) // Insere no fim
-        +void remover()    // Remove do início
-        +int vazia()
-    }
-    class Lista {
-        +No* prim
-        +No* ult
-    }
-    Fila --> Lista : encapsula
-
-    note for Fila "FIFO: First In First Out
-    - Inserção: sempre no fim
-    - Remoção: sempre do início
-    [1] -> [2] -> [3]
-    frente      fundo"
-```
-
-### Pilha (LIFO)
-
-```mermaid
-classDiagram
-    class Pilha {
-        +Lista* lst
-        +void push(int)  // Insere no início
-        +void pop()      // Remove do início
-        +int vazia()
-    }
-    class Lista {
-        +No* prim
-        +No* ult
-    }
-    Pilha --> Lista : encapsula
-
-    note for Pilha "LIFO: Last In First Out
-    - Inserção: sempre no início
-    - Remoção: sempre do início
-        [3] topo
-        [2]
-        [1] base"
-```
-
-## Funcionamento das Estruturas
+## 🚀 Estruturas Implementadas
 
 ### Lista Encadeada
-- Estrutura base que mantém nós ligados sequencialmente
-- Cada nó contém um valor e um ponteiro para o próximo nó
-- A lista mantém referências para o primeiro e último nós
-- Operações:
-  - Inserção no início
-  - Inserção no fim
-  - Remoção do início
-  - Remoção do fim
-  - Impressão dos elementos
+Uma estrutura de dados linear e dinâmica que consiste em uma sequência de elementos onde:
+- Cada elemento (nó) armazena um valor e um ponteiro para o próximo
+- Suporta inserção e remoção em ambas as extremidades
+- Mantém referências para o primeiro e último elementos
+- Principal estrutura que serve de base para Fila e Pilha
 
-### Fila (FIFO - First In First Out)
-- Encapsula uma Lista Encadeada
-- Inserção sempre no fim (usando lst_inserir_fim)
-- Remoção sempre do início (usando lst_remover_inicio)
-- Impressão mostra elementos da frente ao fundo
-```
-Fila: [1, 2, 3, 4]
-Frente -> [primeiro elemento] ... [último elemento] <- Fundo
-```
+**Principais operações:**
+- `lst_criar()`: Cria uma nova lista vazia
+- `lst_inserir_inicio()`: Insere no início
+- `lst_inserir_fim()`: Insere no final
+- `lst_remover_inicio()`: Remove do início
+- `lst_remover_final()`: Remove do final
 
-### Pilha (LIFO - Last In First Out)
-- Encapsula uma Lista Encadeada
-- Inserção sempre no início (usando lst_inserir_inicio)
-- Remoção sempre do início (usando lst_remover_inicio)
-- Impressão mostra elementos do topo à base
-```
-Pilha: (topo)
-   |  3  |
-   |  2  |
-   |  1  |
-   +-----+
-   (base)
-```
+### Fila (Queue)
+Uma estrutura que segue a política FIFO (First-In-First-Out), implementada através de lista encadeada onde:
+- O primeiro elemento a entrar é o primeiro a sair
+- Inserções ocorrem sempre no final (tail)
+- Remoções ocorrem sempre no início (head)
+- Ideal para processamento de dados em ordem de chegada
 
-## Como Compilar e Executar
+**Principais operações:**
+- `fila_criar()`: Cria uma nova fila
+- `fila_inserir()`: Insere no final da fila
+- `fila_remover()`: Remove do início da fila
+- `fila_vazia()`: Verifica se está vazia
 
-1. Compile todos os arquivos fonte:
+### Pilha (Stack)
+Uma estrutura que segue a política LIFO (Last-In-First-Out), implementada através de lista encadeada onde:
+- O último elemento a entrar é o primeiro a sair
+- Todas as operações ocorrem em uma extremidade (topo)
+- Ideal para controle de chamadas de funções, expressões matemáticas
+
+**Principais operações:**
+- `pilha_criar()`: Cria uma nova pilha
+- `pilha_push()`: Insere no topo
+- `pilha_pop()`: Remove do topo
+- `pilha_vazia()`: Verifica se está vazia
+
+## 🛠️ Tecnologias Utilizadas
+- Linguagem C (C11)
+- GCC Compiler
+- Make (opcional para build)
+- Valgrind (para testes de memória)
+
+## 📋 Pré-requisitos
+- GCC 7.0 ou superior
+- Make (opcional)
+- Sistema operacional: Linux, macOS ou Windows (com WSL ou MinGW)
+
+## 📥 Instalação
+
+### Via Git
 ```bash
-gcc -c Lista.c Fila.c Pilha.c main.c
+git clone https://github.com/DanielTrindade/Tipos-abstratos-de-dados-basicos.git
+cd nome-do-repo
 ```
 
-2. Link os objetos em um executável:
+### Compilação Manual
 ```bash
+gcc -c Lista.c Fila.c Pilha.c
 gcc Lista.o Fila.o Pilha.o main.c -o programa
 ```
 
-3. Execute o programa:
+### Usando Make (opcional)
 ```bash
-./programa
+make all
 ```
 
-## Exemplo de Uso
+## 💻 Como Usar
 
+### Exemplo com Lista
 ```c
-// Testando a Lista
-Lista *lst = lst_criar();
-lst_inserir_fim(lst, 1);
-lst_inserir_fim(lst, 2);
-lst_inserir_fim(lst, 3);
-lst_imprimir(lst);  // Saída: 1 2 3
-lst_limpar(lst);
+#include "Lista.h"
 
-// Testando a Fila
-Fila *f = fila_criar();
-fila_inserir(f, 1);
-fila_inserir(f, 2);
-fila_inserir(f, 3);
-fila_imprimir(f);   // Saída: Fila: [1, 2, 3]
-fila_destruir(f);
-
-// Testando a Pilha
-Pilha *p = pilha_criar();
-pilha_push(p, 1);
-pilha_push(p, 2);
-pilha_push(p, 3);
-pilha_imprimir(p);  /* Saída:
-                       Pilha: (topo)
-                          |  3  |
-                          |  2  |
-                          |  1  |
-                          +-----+
-                          (base)  */
-pilha_destruir(p);
+int main() {
+    Lista *lst = lst_criar();
+    lst_inserir_fim(lst, 10);
+    lst_inserir_fim(lst, 20);
+    lst_imprimir(lst);
+    lst_limpar(lst);
+    return 0;
+}
 ```
 
-## Testes Sugeridos
+### Exemplo com Fila
+```c
+#include "Fila.h"
 
-1. **Lista Encadeada**:
-   - Inserir elementos no início e fim
-   - Remover elementos do início e fim
-   - Tentar remover de lista vazia
-   - Inserir após remover todos elementos
+int main() {
+    // Criando e populando a fila
+    Fila *f = fila_criar();
+    
+    // Inserindo elementos (sempre no fim)
+    fila_inserir(f, 10);  // Fila: [10]
+    fila_inserir(f, 20);  // Fila: [10, 20]
+    fila_inserir(f, 30);  // Fila: [10, 20, 30]
+    
+    // Imprimindo a fila
+    fila_imprimir(f);  // Fila: [10, 20, 30]
+                       // Frente -> [primeiro elemento] ... [último elemento] <- Fundo
+    
+    // Removendo elementos (sempre do início)
+    fila_remover(f);   // Remove: 10
+    fila_imprimir(f);  // Fila: [20, 30]
+    
+    // Verificando se está vazia
+    if(!fila_vazia(f)) {
+        printf("Fila ainda contém elementos!\n");
+    }
+    
+    // Liberando a memória
+    fila_destruir(f);
+    return 0;
+}
+```
 
-2. **Fila**:
-   - Inserir vários elementos
-   - Remover alguns elementos e verificar ordem FIFO
-   - Tentar remover de fila vazia
-   - Inserir após esvaziar a fila
+### Exemplo com Pilha
+```c
+#include "Pilha.h"
 
-3. **Pilha**:
-   - Empilhar vários elementos
-   - Desempilhar alguns e verificar ordem LIFO
-   - Tentar desempilhar de pilha vazia
-   - Empilhar após esvaziar a pilha
+int main() {
+    // Criando e populando a pilha
+    Pilha *p = pilha_criar();
+    
+    // Empilhando elementos (push)
+    pilha_push(p, 10);  // Base -> 10
+    pilha_push(p, 20);  // Base -> 10, 20
+    pilha_push(p, 30);  // Base -> 10, 20, 30 <- Topo
+    
+    // Imprimindo a pilha
+    pilha_imprimir(p);  /* Saída:
+                           Pilha: (topo)
+                              |  30  |
+                              |  20  |
+                              |  10  |
+                              +-----+
+                              (base)  */
+    
+    // Desempilhando elementos (pop)
+    pilha_pop(p);      // Remove: 30 (topo)
+    pilha_imprimir(p); // Mostra: 20, 10
+    
+    // Verificando se está vazia
+    if(!pilha_vazia(p)) {
+        printf("Pilha ainda contém elementos!\n");
+    }
+    
+    // Liberando a memória
+    pilha_destruir(p);
+    return 0;
+}
+```
 
-## Observações Importantes
+[Exemplos similares para Fila e Pilha...]
 
-- Todas as estruturas fazem verificação de ponteiros nulos
-- A memória é gerenciada adequadamente com malloc/free
-- As funções de impressão respeitam as políticas de cada estrutura
-- A modularização permite fácil manutenção e reuso
-- Os headers estão documentados com comentários detalhados
+## ⚙️ Complexidade das Operações
+
+### Lista Encadeada
+| Operação | Complexidade | Descrição |
+|----------|-------------|------------|
+| Inserir início | O(1) | Constante |
+| Inserir fim | O(1) | Constante |
+| Remover início | O(1) | Constante |
+| Remover fim | O(n) | Linear |
+| Buscar elemento | O(n) | Linear |
+| Verificar vazia | O(1) | Constante |
+
+### Fila (FIFO)
+| Operação | Complexidade | Descrição |
+|----------|-------------|------------|
+| Inserir (enqueue) | O(1) | Constante - Insere no fim da fila |
+| Remover (dequeue) | O(1) | Constante - Remove do início da fila |
+| Verificar vazia | O(1) | Constante - Verifica se há elementos |
+| Acessar frente | O(1) | Constante - Consulta primeiro elemento |
+| Destruir fila | O(n) | Linear - Libera todos os elementos |
+| Imprimir | O(n) | Linear - Percorre todos os elementos |
+
+### Pilha (LIFO)
+| Operação | Complexidade | Descrição |
+|----------|-------------|------------|
+| Push | O(1) | Constante - Insere no topo da pilha |
+| Pop | O(1) | Constante - Remove do topo da pilha |
+| Verificar vazia | O(1) | Constante - Verifica se há elementos |
+| Acessar topo | O(1) | Constante - Consulta elemento do topo |
+| Destruir pilha | O(n) | Linear - Libera todos os elementos |
+| Imprimir | O(n) | Linear - Percorre todos os elementos |
+
+### Notas sobre Complexidade
+- **Lista Encadeada**: Mantém operações O(1) para inserção e remoção no início devido ao acesso direto ao primeiro nó. A remoção no fim é O(n) pois requer percorrer a lista até o penúltimo elemento.
+  
+- **Fila**: Alcança O(1) em suas operações principais (inserir/remover) por utilizar a lista encadeada de maneira otimizada:
+  - Inserção: usa o fim da lista (O(1))
+  - Remoção: usa o início da lista (O(1))
+
+- **Pilha**: Também atinge O(1) em suas operações principais realizando todas as operações no início da lista:
+  - Push: insere no início (O(1))
+  - Pop: remove do início (O(1))
+
+### Uso de Memória
+- Cada nó da estrutura ocupa:
+  - 4 bytes para o valor (int)
+  - 8 bytes para o ponteiro próximo
+  - Total: 12 bytes por elemento
+- Estrutura de controle:
+  - Lista: 16 bytes (dois ponteiros)
+  - Fila: 16 bytes (encapsula uma Lista)
+  - Pilha: 16 bytes (encapsula uma Lista)
+
+## 📝 Licença
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 📧 Contato
+Daniel Trindade - [@Dan13lTr1ndad3](https://x.com/Dan13lTr1ndad3) - 
+danieloliveiratrindade@gmail.com
+
+Link do Projeto: [https://github.com/DanielTrindade/Tipos-abstratos-de-dados-basicos](https://github.com/DanielTrindade/Tipos-abstratos-de-dados-basicos)
+
+## 📚 Referências
+- Introduction to Algorithms, CLRS
+- Data Structures and Algorithm Analysis in C
+- [GeeksforGeeks - Data Structures](https://www.geeksforgeeks.org/data-structures/)
+
+## 📈 Roadmap
+- [ ] Adicionar busca por valor
+- [ ] Suporte a tipos genéricos (void*)
