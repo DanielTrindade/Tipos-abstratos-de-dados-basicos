@@ -39,12 +39,21 @@ classDiagram
 classDiagram
     class Fila {
         +Lista* lst
+        +void inserir(int) // Insere no fim
+        +void remover()    // Remove do início
+        +int vazia()
     }
     class Lista {
         +No* prim
         +No* ult
     }
     Fila --> Lista : encapsula
+
+    note for Fila "FIFO: First In First Out
+    - Inserção: sempre no fim
+    - Remoção: sempre do início
+    [1] -> [2] -> [3]
+    frente      fundo"
 ```
 
 ### Pilha (LIFO)
@@ -53,12 +62,22 @@ classDiagram
 classDiagram
     class Pilha {
         +Lista* lst
+        +void push(int)  // Insere no início
+        +void pop()      // Remove do início
+        +int vazia()
     }
     class Lista {
         +No* prim
         +No* ult
     }
     Pilha --> Lista : encapsula
+
+    note for Pilha "LIFO: Last In First Out
+    - Inserção: sempre no início
+    - Remoção: sempre do início
+        [3] topo
+        [2]
+        [1] base"
 ```
 
 ## Funcionamento das Estruturas
